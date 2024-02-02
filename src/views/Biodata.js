@@ -495,6 +495,22 @@ const Biodata = () => {
 				await fetchDataJenisKelamin();
 				await fetchDataPosisi();
 				await fetchDataTingkatPendidikan();
+			} catch (err) {
+				//
+			}
+		};
+
+		fetch();
+
+		return () => {
+			//
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		const fetch = async () => {
+			try {
 				await fetchData();
 
 				setReload(false);

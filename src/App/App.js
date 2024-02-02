@@ -15,15 +15,18 @@ import { demoPages, layoutMenu } from '../menu';
 import { Toast, ToastContainer } from '../components/bootstrap/Toasts';
 import useDarkMode from '../hooks/useDarkMode';
 import COLORS from '../common/data/enumColors';
-import { getOS } from '../helpers/helpers';
+import { decodeToken, getItemsStorage, getOS } from '../helpers/helpers';
 import steps, { styles } from '../steps';
 import showNotification from '../components/extras/showNotification';
 import AuthService from '../services/AuthService';
 
-const appToken = localStorage.getItem('appToken') || null;
+const appToken = getItemsStorage('appToken');
+const accessToken = getItemsStorage('accessToken');
 
 const App = () => {
 	getOS();
+
+	const decodeAccessToken = decodeToken(accessToken?.accessToken);
 
 	/**
 	 * Dark Mode
@@ -124,7 +127,12 @@ const App = () => {
 							{withOutAsidePages.map((path) => (
 								<Route key={path} path={path} />
 							))}
-							<Route path='*' element={<Aside />} />
+							<Route
+								path='*'
+								element={
+									['user'].includes(decodeAccessToken?.type) ? <Aside /> : null
+								}
+							/>
 						</Routes>
 						<Wrapper />
 					</div>

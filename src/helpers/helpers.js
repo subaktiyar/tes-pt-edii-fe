@@ -132,3 +132,9 @@ export const getUser = () => {
 		position: decode?.biodata?.posisi,
 	};
 };
+
+export const getItemsStorage = (name) => {
+	const item = localStorage.getItem(name);
+	if (!item) return null;
+	return JSON.parse(item);
+};

@@ -160,7 +160,9 @@ const ButtonCustom = ({
 				setIsOpen={setIsOpen}
 				size='xl'
 				isCentered
-				isStaticBackdrop>
+				isStaticBackdrop
+				isFocus={false}
+				enableEscape={false}>
 				<ModalHeader setIsOpen={setIsOpen}>
 					<ModalTitle id='form-detail'>Biodata</ModalTitle>
 				</ModalHeader>
@@ -489,6 +491,22 @@ const DataUser = () => {
 				await fetchDataJenisKelamin();
 				await fetchDataPosisi();
 				await fetchDataTingkatPendidikan();
+			} catch (err) {
+				//
+			}
+		};
+
+		fetch();
+
+		return () => {
+			//
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		const fetch = async () => {
+			try {
 				await fetchData();
 			} catch (err) {
 				//

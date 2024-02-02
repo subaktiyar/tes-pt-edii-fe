@@ -104,6 +104,8 @@ const Modal = ({
 	size,
 	fullScreen,
 	isAnimation,
+	isFocus,
+	enableEscape,
 	...props
 }) => {
 	const refModal = useRef(null);
@@ -130,7 +132,7 @@ const Modal = ({
 
 	// Backdrop static function
 	const modalStatic = (event) => {
-		if (ref.current && !ref.current.contains(event.target) && isStaticBackdrop) {
+		if (ref.current && !ref.current.contains(event.target) && isStaticBackdrop && isFocus) {
 			refModal.current.classList.add('modal-static');
 			setTimeout(() => refModal.current.classList.remove('modal-static'), 300);
 		}
@@ -140,7 +142,7 @@ const Modal = ({
 
 	// Keypress close function
 	const escFunction = (event) => {
-		if (event.key === 'Escape') {
+		if (event.key === 'Escape' && enableEscape) {
 			setIsOpen(false);
 		}
 	};
@@ -234,6 +236,8 @@ Modal.propTypes = {
 		PropTypes.bool,
 	]),
 	isAnimation: PropTypes.bool,
+	isFocus: PropTypes.bool,
+	enableEscape: PropTypes.bool,
 };
 Modal.defaultProps = {
 	id: null,
@@ -244,6 +248,8 @@ Modal.defaultProps = {
 	size: null,
 	fullScreen: false,
 	isAnimation: true,
+	isFocus: false,
+	enableEscape: true,
 };
 
 export default Modal;

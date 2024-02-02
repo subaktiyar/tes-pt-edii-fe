@@ -100,7 +100,13 @@ const FormCreate = ({ initialValues, isOpen, setIsOpen, size, title, onSubmit })
 	);
 
 	return (
-		<Modal isOpen={isOpen} setIsOpen={setIsOpen} titleId='form-create' size={size}>
+		<Modal
+			isOpen={isOpen}
+			setIsOpen={setIsOpen}
+			titleId='form-create'
+			size={size}
+			isFocus={false}
+			enableEscape={false}>
 			<ModalHeader setIsOpen={setIsOpen}>
 				<ModalTitle id='form-create'>{title}</ModalTitle>
 			</ModalHeader>

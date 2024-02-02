@@ -1,13 +1,13 @@
 import React, { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import contents from '../../routes/customRoutes';
-import { decodeToken, getRouting } from '../../helpers/helpers';
+import { decodeToken, getItemsStorage, getRouting } from '../../helpers/helpers';
 
 const PAGE_404 = lazy(() => import('../../pages/presentation/auth/Page404'));
 const Login = lazy(() => import('../../views/Login'));
 
-const token = JSON.parse(localStorage.getItem('accessToken'));
-const menu = JSON.parse(localStorage.getItem('menu'));
+const token = getItemsStorage('accessToken');
+const menu = getItemsStorage('menu');
 
 const menuDraft = getRouting(menu);
 const menuComponents = menuDraft.map((item) => {
@@ -40,6 +40,7 @@ const ContentRoutes = () => {
 
 			{/* handle blank route */}
 			<Route
+				exact
 				path='/'
 				element={
 					['user'].includes(decode?.type) ? (
@@ -49,6 +50,7 @@ const ContentRoutes = () => {
 					)
 				}
 			/>
+
 			<Route path='*' element={<PAGE_404 />} />
 		</Routes>
 	);

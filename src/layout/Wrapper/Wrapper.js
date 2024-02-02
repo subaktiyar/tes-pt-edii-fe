@@ -6,6 +6,9 @@ import WrapperOverlay from './WrapperOverlay';
 import HeaderRoutes from '../Header/HeaderRoutes';
 import FooterRoutes from '../Footer/FooterRoutes';
 import ThemeContext from '../../contexts/themeContext';
+import { decodeToken, getItemsStorage } from '../../helpers/helpers';
+
+const token = getItemsStorage('accessToken');
 
 export const WrapperContainer = ({ children, className, ...props }) => {
 	const { rightPanel } = useContext(ThemeContext);
@@ -31,12 +34,14 @@ WrapperContainer.defaultProps = {
 };
 
 const Wrapper = () => {
+	const decode = decodeToken(token?.accessToken);
+
 	return (
 		<>
 			<WrapperContainer>
-				<HeaderRoutes />
+				{['user'].includes(decode?.type) && <HeaderRoutes />}
 				<Content />
-				<FooterRoutes />
+				{['user'].includes(decode?.type) && <FooterRoutes />}
 			</WrapperContainer>
 			<WrapperOverlay />
 		</>
